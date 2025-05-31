@@ -22,6 +22,7 @@ export type PopoverProps = {
   numberOfLines?: number;
   visible?: boolean;
   position?: 'top' | 'right' | 'bottom' | 'left';
+  textStyle?: ViewProps['style'];
 } & ViewProps;
 
 const Popover = React.forwardRef<View, PopoverProps>(function Popover(
