@@ -15,7 +15,7 @@ import {
   View,
   ViewProps,
 } from 'react-native';
-import Backdrop from './Backdrop';
+// import Backdrop from './Backdrop';
 import Popover, { PopoverProps } from './Popover';
 import type { PopableManager } from './use-popable/types';
 
@@ -70,7 +70,7 @@ const Popable = forwardRef<PopableManager, PopableProps>(function Popable(
   const [popoverVisible, setPopoverVisible] = useState(false);
   const [popoverOffset, setPopoverOffset] = useState({ left: 0, top: 0 });
   const [popoverLayout, setPopoverLayout] = useState(DEFAULT_LAYOUT);
-  const [popoverPagePosition, setPopoverPagePosition] = useState({
+  const [_, setPopoverPagePosition] = useState({
     left: 0,
     top: 0,
   });
@@ -136,10 +136,10 @@ const Popable = forwardRef<PopableManager, PopableProps>(function Popable(
     }
   }
 
-  const handleHidePopover = useCallback(() => {
-    setPopoverVisible(false);
-    onAction?.(false);
-  }, [onAction]);
+  // const handleHidePopover = useCallback(() => {
+  //   setPopoverVisible(false);
+  //   onAction?.(false);
+  // }, [onAction]);
 
   const handlePopoverLayout = useCallback(() => {
     popoverRef.current?.measureInWindow((x, y, width, height) => {
