@@ -20,7 +20,7 @@ import Popover, { PopoverProps } from './Popover';
 import type { PopableManager } from './use-popable/types';
 
 export type PopableProps = {
-  action?: 'press' | 'longpress' | 'hover';
+  action?: 'press' | 'longpress' | 'hover' | 'none';
   animated?: PopoverProps['animated'];
   animationType?: PopoverProps['animationType'];
   backgroundColor?: PopoverProps['backgroundColor'];
@@ -86,6 +86,23 @@ const Popable = forwardRef<PopableManager, PopableProps>(function Popable(
 
   const handlers: { [prop: string]: () => void } = {};
 
+  const measureTargetView = () => {
+    // popoverRef.current?.measure(
+    //   (_x, _y, _width, _height, pageX, pageY) => {
+    //     setPopoverPagePosition({ left: pageX, top: pageY });
+    //   }
+    // );
+    popoverRef.current?.measureInWindow((x, y, width, height) => {
+      setPopoverPagePosition({ left: x, top: y });
+    });
+  }
+
+  useEffect(() => {
+    if (action === 'none') {
+      setTimeout(measureTargetView, 300)
+    }
+  }, [action])
+
   if (isInteractive) {
     if (action === 'hover' && Platform.OS === 'web') {
       handlers.onHoverIn = () => {
@@ -103,11 +120,7 @@ const Popable = forwardRef<PopableManager, PopableProps>(function Popable(
     ) {
       handlers.onPress = () => {
         if (!visible) {
-          popoverRef.current?.measure(
-            (_x, _y, _width, _height, pageX, pageY) => {
-              setPopoverPagePosition({ left: pageX, top: pageY });
-            }
-          );
+          measureTargetView();
         }
 
         onAction?.(!visible);
