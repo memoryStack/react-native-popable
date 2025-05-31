@@ -35,6 +35,7 @@ export type PopableProps = {
   style?: PopoverProps['style'];
   visible?: boolean;
   wrapperStyle?: ViewProps['style'];
+  textStyle?: ViewProps['style'];
 };
 
 const DEFAULT_LAYOUT = {
@@ -61,6 +62,7 @@ const Popable = forwardRef<PopableManager, PopableProps>(function Popable(
     style,
     visible,
     wrapperStyle,
+    textStyle,
   },
   ref
 ) {
@@ -213,11 +215,12 @@ const Popable = forwardRef<PopableManager, PopableProps>(function Popable(
     children: content,
     numberOfLines,
     position: computedPosition,
+    textStyle,
   };
 
   return (
     <View style={[styles.container, wrapperStyle]}>
-      <Backdrop
+      {/* <Backdrop
         visible={isInteractive && popoverVisible}
         onPress={handleHidePopover}
         popoverRef={popoverRef}
@@ -234,6 +237,7 @@ const Popable = forwardRef<PopableManager, PopableProps>(function Popable(
           // `visible` set to `false`)
           Platform.OS !== 'web' && (
             <Popover
+              ref={popoverRef}
               {...sharedPopoverProps}
               forceInitialAnimation
               visible={isPopoverVisible}
@@ -250,13 +254,14 @@ const Popable = forwardRef<PopableManager, PopableProps>(function Popable(
             />
           )
         }
-      </Backdrop>
+      </Backdrop> */}
 
       <Popover
         ref={popoverRef}
         {...sharedPopoverProps}
         onLayout={handlePopoverLayout}
-        visible={Platform.OS === 'web' ? isPopoverVisible : false}
+        // visible={Platform.OS === 'web' ? isPopoverVisible : false}
+        visible={isPopoverVisible}
         style={[
           computedPosition === 'top' && styles.popoverTop,
           computedPosition === 'bottom' && styles.popoverBottom,

@@ -37,6 +37,7 @@ const Popover = React.forwardRef<View, PopoverProps>(function Popover(
     visible = true,
     position = 'bottom',
     style,
+    textStyle,
     ...extraProps
   },
   ref
@@ -129,7 +130,7 @@ const Popover = React.forwardRef<View, PopoverProps>(function Popover(
           ]}
         >
           {isContentString ? (
-            <Text numberOfLines={numberOfLines} style={styles.contentText}>
+            <Text numberOfLines={numberOfLines} style={[styles.contentText, textStyle]}>
               {children}
             </Text>
           ) : (
