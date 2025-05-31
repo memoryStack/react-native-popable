@@ -92,7 +92,7 @@ const Popable = forwardRef<PopableManager, PopableProps>(function Popable(
     //     setPopoverPagePosition({ left: pageX, top: pageY });
     //   }
     // );
-    popoverRef.current?.measureInWindow((x, y, width, height) => {
+    popoverRef.current?.measureInWindow((x, y) => {
       setPopoverPagePosition({ left: x, top: y });
     });
   }
